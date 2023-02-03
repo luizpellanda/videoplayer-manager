@@ -1,11 +1,12 @@
 async function listaVideos() {
-    const conexao = await fetch ('http://localhost:3000/videos');
+    const conexao = await fetch("http://localhost:3000/videos");
     const conexaoConvertida = await conexao.json();
+
     return conexaoConvertida;
 }
 
-async function criaVideo(titulo, descricao, url, imagem) {
-    const conexao = await fetch('http://localhost:3000/videos', {
+export default async function criaVideo(titulo, descricao, url, imagem) {
+    const conexao = await fetch("http://localhost:3000/videos", {
         method: "POST",
         headers: {
             "Content-type": "application/json"
@@ -18,10 +19,20 @@ async function criaVideo(titulo, descricao, url, imagem) {
         })
     });
 
+    const conexaoConvertida = conexao.json();
+
+    return conexaoConvertida;
+}
+
+async function buscaVideo (termoDeBusca) {
+    const conexao = await fetch(`http://localhost:3000/videos?q=${termoDeBusca}`);
     const conexaoConvertida = await conexao.json();
-    return conexaoConvertida
+
+    return conexaoConvertida;
 }
 
 export const conectaApi = {
-    listaVideos, criaVideo
+    listaVideos,
+    criaVideo,
+    buscaVideo
 }
